@@ -1,10 +1,10 @@
 # library-server
 
 Чтобы приложение работало запущенным под docker'om, необходимо запускать образ с параметром -p 9000:9000 или же -P
-(docker run -p 9000:9000 web_server)
+(docker run -p 9000:9000 latest)
 
 Так выглядит команда на сбор образа и его запуск:
-docker build -t web_server . && docker run -p 9000:9000 web_server
+docker build -t latest . && docker run -p 9000:9000 latest
 
 После того как приложение запуститься, оно будет доступно по адресу: localhost:9000
 На данный момент у него есть два endpoint'a: /hello и /getName (Они созданы для проверки жизнеспособности приложения внутри контейнера)
