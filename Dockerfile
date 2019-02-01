@@ -1,7 +1,5 @@
-FROM openjdk:latest
-WORKDIR /
-ADD server-id.jar server-id.jar
+FROM maven:3.3-jdk-8
+ADD . /home
+WORKDIR /home
 EXPOSE 9000
-
-CMD ["java", "-version"]
-CMD ["java", "-jar", "server-id.jar"]
+CMD ["mvn", "-X", "clean", "install", "exec:java"]
