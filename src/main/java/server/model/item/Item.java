@@ -1,6 +1,6 @@
 package server.model.item;
 
-import com.blade.kit.json.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.bson.types.ObjectId;
@@ -14,7 +14,6 @@ import xyz.morphia.annotations.Property;
 public class Item {
 
     @Id
-    @JsonProperty("id")
     private ObjectId id;
 
     @Property("word")
@@ -24,4 +23,7 @@ public class Item {
     @Property("translate")
     @JsonProperty("translate")
     private String translate;
+
+    private String itemId;
+
 }

@@ -34,4 +34,24 @@ public class DictionaryDao {
         database.getDatastore()
                 .save(item);
     }
+
+    public void update(Item item) {
+        Database database = Database.getInstance();
+        Item dbItem = database.getDatastore()
+                .find(Item.class)
+                .field("_id").equal(item.getId())
+                .get();
+        dbItem.setWord(item.getWord());
+        dbItem.setTranslate(item.getTranslate());
+        database.getDatastore().save(dbItem);
+    }
+
+    public void deleteById(ObjectId id) {
+        Database database = Database.getInstance();
+        Item item = database.getDatastore()
+                .find(Item.class)
+                .field("_id").equal(id)
+                .get();
+        database.getDatastore().delete(item);
+    }
 }
