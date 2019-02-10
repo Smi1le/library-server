@@ -1,16 +1,17 @@
-package server.dao;
+package server.dao.impl;
 
 import lombok.NoArgsConstructor;
 import org.bson.types.ObjectId;
-import server.model.item.CreateItem;
+import server.dao.IDictionaryDao;
 import server.model.item.Item;
 import xyz.morphia.Key;
 import xyz.morphia.query.Query;
 
 import java.util.Collection;
+import java.util.Objects;
 
 @NoArgsConstructor
-public class DictionaryDao {
+public class DictionaryDao implements IDictionaryDao {
 
     public Collection<Item> getAll(String searchString) {
         Database database = Database.getInstance();
@@ -44,8 +45,12 @@ public class DictionaryDao {
                 .find(Item.class)
                 .field("_id").equal(item.getId())
                 .get();
-        dbItem.setWord(item.getWord());
-        dbItem.setTranslate(item.getTranslate());
+        if (!Objects.isNull(item.getWord())) {
+            dbItem.setWord(item.getWord());
+        }
+        if (!Objects.isNull(item.getTranslate())) {
+            dbItem.setTranslate(item.getTranslate());
+        }
         database.getDatastore().save(dbItem);
     }
 

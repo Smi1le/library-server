@@ -3,6 +3,7 @@ package server.model.item;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.Accessors;
 import org.bson.types.ObjectId;
 import xyz.morphia.annotations.Entity;
 import xyz.morphia.annotations.Id;
@@ -10,6 +11,7 @@ import xyz.morphia.annotations.Property;
 
 @Data
 @NoArgsConstructor
+@Accessors(chain = true)
 @Entity("item")
 public class Item {
 

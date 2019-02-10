@@ -1,16 +1,17 @@
-package server.service;
+package server.service.impl;
 
 import org.bson.types.ObjectId;
-import server.dao.DictionaryDao;
+import server.dao.IDictionaryDao;
+import server.dao.impl.DictionaryDao;
 import server.model.item.Item;
-import xyz.morphia.Key;
+import server.service.IDictionaryService;
 
 import java.util.Collection;
 import java.util.Objects;
 
 public class DictionaryService implements IDictionaryService {
 
-    private DictionaryDao dictionaryDao;
+    private IDictionaryDao dictionaryDao;
 
     public DictionaryService() {
         this.dictionaryDao = new DictionaryDao();

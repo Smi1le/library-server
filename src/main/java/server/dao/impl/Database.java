@@ -1,4 +1,4 @@
-package server.dao;
+package server.dao.impl;
 
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;

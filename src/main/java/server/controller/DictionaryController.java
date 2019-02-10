@@ -3,12 +3,11 @@ package server.controller;
 import com.blade.mvc.annotation.*;
 import com.blade.mvc.ui.RestResponse;
 import org.bson.types.ObjectId;
-import server.dao.DictionaryDao;
-import server.model.item.CreateItem;
 import server.model.item.Item;
+import server.service.impl.DictionaryService;
+import server.service.IDictionaryService;
 
 import java.util.Collection;
-import java.util.stream.Collectors;
 
 @Path("/item")
 public class DictionaryController {
@@ -16,7 +15,8 @@ public class DictionaryController {
     @GetRoute("/getAll")
     @JSON
     public RestResponse getAll(@Param(name = "search") String search) {
-        Collection<Item> items = new DictionaryDao().getAll(search);
+        IDictionaryService service = new DictionaryService();
+        Collection<Item> items = service.getAll(search);
         for (Item item :items) {
             item.setItemId(item.getId().toString());
             item.setId(null);
@@ -27,28 +27,32 @@ public class DictionaryController {
     @GetRoute("/:id")
     @JSON
     public Item getById(@PathParam String id) {
-        return new DictionaryDao().getById(new ObjectId(id));
+        IDictionaryService service = new DictionaryService();
+        return service.getById(new ObjectId(id));
     }
 
 
     @PostRoute
     @JSON
     public RestResponse addItem(@BodyParam Item item) {
-        new DictionaryDao().create(item);
+        IDictionaryService service = new DictionaryService();
+        service.create(item);
         return RestResponse.ok();
     }
 
     @PutRoute("/:id")
     @JSON
     public RestResponse updateItem(@PathParam(name = "id") String id, @BodyParam Item item) {
+        IDictionaryService service = new DictionaryService();
         item.setId(new ObjectId(id));
-        new DictionaryDao().update(item);
+        service.update(item);
         return RestResponse.ok();
     }
 
     @DeleteRoute("/:id")
     public RestResponse deleteItem(@PathParam(name = "id") String id) {
-        new DictionaryDao().deleteById(new ObjectId(id));
+        IDictionaryService service = new DictionaryService();
+        service.deleteById(new ObjectId(id));
         return RestResponse.ok();
     }
 }

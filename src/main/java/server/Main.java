@@ -1,7 +1,7 @@
 package server;
 
 import com.blade.Blade;
-import server.dao.Database;
+import server.dao.impl.Database;
 import server.model.database.DatabaseParameters;
 
 public class Main {
