@@ -4,6 +4,7 @@ import lombok.NoArgsConstructor;
 import org.bson.types.ObjectId;
 import server.model.item.CreateItem;
 import server.model.item.Item;
+import xyz.morphia.Key;
 import xyz.morphia.query.Query;
 
 import java.util.Collection;
@@ -29,10 +30,12 @@ public class DictionaryDao {
                 .get();
     }
 
-    public void create(Item item) {
+    public Item create(Item item) {
         Database database = Database.getInstance();
-        database.getDatastore()
+        Key<Item> key =  database.getDatastore()
                 .save(item);
+        item.setId((ObjectId) key.getId());
+        return item;
     }
 
     public void update(Item item) {
