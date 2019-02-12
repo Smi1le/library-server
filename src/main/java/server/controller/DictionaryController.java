@@ -12,19 +12,34 @@ import java.util.Collection;
 @Path("/item")
 public class DictionaryController {
 
+    @Route
+    @JSON
+    public RestResponse option() {
+        return RestResponse.ok();
+    }
+
+    @Route("/:id")
+    @JSON
+    public RestResponse optionId() {
+        return RestResponse.ok();
+    }
+
     @GetRoute("/getAll")
     @JSON
     public RestResponse getAll(@Param(name = "search") String search) {
         IDictionaryService service = new DictionaryService();
         Collection<Item> items = service.getAll(search);
-        return RestResponse.ok(com.alibaba.fastjson.JSON.toJSONString(items));
+        return RestResponse.ok(items);
     }
 
     @GetRoute("/:id")
     @JSON
     public String getById(@PathParam String id) {
         IDictionaryService service = new DictionaryService();
-        return com.alibaba.fastjson.JSON.toJSONString(service.getById(new ObjectId(id)));
+        Item ret = service.getById(new ObjectId(id));
+        ret.setItemId(ret.getId().toString());
+        ret.setId(null);
+        return ret;
     }
 
 
