@@ -134,6 +134,15 @@ public class ApiTestClass {
         Assert.assertTrue(array.length() > 0);
     }
 
+    @Test
+    public void givenRequestForDeleteItemById() throws ClientProtocolException, IOException {
+        HttpUriRequest request = new HttpGet("http://localhost:9000/item/" + idItemForUpdate);
+        HttpResponse response = HttpClientBuilder.create().build().execute(request);
+
+//        JSONArray array = getPayload(response.getEntity().getContent());
+        Assert.assertEquals(response.getStatusLine().getStatusCode(), HttpStatus.SC_OK);
+    }
+
     private JSONArray getPayload(InputStream inputStream) {
         JSONObject jsonObject = toJsonObject(inputStream);
         Map<String, Object> map = jsonObject.toMap();
