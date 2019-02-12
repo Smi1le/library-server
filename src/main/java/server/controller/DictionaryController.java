@@ -17,27 +17,22 @@ public class DictionaryController {
     public RestResponse getAll(@Param(name = "search") String search) {
         IDictionaryService service = new DictionaryService();
         Collection<Item> items = service.getAll(search);
-        for (Item item :items) {
-            item.setItemId(item.getId().toString());
-            item.setId(null);
-        }
         return RestResponse.ok(com.alibaba.fastjson.JSON.toJSONString(items));
     }
 
     @GetRoute("/:id")
     @JSON
-    public Item getById(@PathParam String id) {
+    public String getById(@PathParam String id) {
         IDictionaryService service = new DictionaryService();
-        return service.getById(new ObjectId(id));
+        return com.alibaba.fastjson.JSON.toJSONString(service.getById(new ObjectId(id)));
     }
 
 
     @PostRoute
     @JSON
-    public RestResponse addItem(@BodyParam Item item) {
+    public String addItem(@BodyParam Item item) {
         IDictionaryService service = new DictionaryService();
-        service.create(item);
-        return RestResponse.ok();
+        return com.alibaba.fastjson.JSON.toJSONString(service.create(item));
     }
 
     @PutRoute("/:id")

@@ -1,3 +1,4 @@
+import org.bson.types.ObjectId;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -26,7 +27,7 @@ public class TestClass {
         Item item = service.create(new Item()
             .setTranslate("Translate Example")
             .setWord("Example"));
-        Assert.assertNotNull(item.getId());
+        Assert.assertNotNull(item.getItemId());
     }
 
     @Test
@@ -55,7 +56,7 @@ public class TestClass {
                 .setTranslate("Translate Example")
                 .setWord("Example"));
 
-        Item newItem = service.getById(item.getId());
+        Item newItem = service.getById(new ObjectId(item.getItemId()));
         Assert.assertNotNull(newItem);
     }
 
@@ -66,8 +67,9 @@ public class TestClass {
                 .setWord("Example"));
         String newTemplate = "Translate Example New";
         item.setTranslate(newTemplate);
+        item.setId(new ObjectId(item.getItemId()));
         service.update(item);
-        Item newItem = service.getById(item.getId());
+        Item newItem = service.getById(new ObjectId(item.getItemId()));
         Assert.assertEquals(newItem.getTranslate(), newTemplate);
         Assert.assertEquals(newItem.getWord(), item.getWord());
     }
@@ -79,8 +81,9 @@ public class TestClass {
                 .setWord("Example"));
         String newTemplate = "Word Example New";
         item.setWord(newTemplate);
+        item.setId(new ObjectId(item.getItemId()));
         service.update(item);
-        Item newItem = service.getById(item.getId());
+        Item newItem = service.getById(new ObjectId(item.getItemId()));
         Assert.assertEquals(newItem.getWord(), newTemplate);
         Assert.assertEquals(newItem.getTranslate(), item.getTranslate());
     }
@@ -102,8 +105,10 @@ public class TestClass {
         Item item = service.create(new Item()
                 .setTranslate("Translate Example")
                 .setWord("Example"));
-        service.deleteById(item.getId());
-        Item newItem = service.getById(item.getId());
+        item.setId(new ObjectId(item.getItemId()));
+        service.deleteById(new ObjectId(item.getItemId()));
+        item.setId(new ObjectId(item.getItemId()));
+        Item newItem = service.getById(new ObjectId(item.getItemId()));
         Assert.assertNull(newItem);
     }
 

@@ -18,16 +18,30 @@ public class DictionaryService implements IDictionaryService {
     }
 
     public Collection<Item> getAll(String searchString) {
-        return dictionaryDao.getAll(searchString);
+        Collection<Item> items = dictionaryDao.getAll(searchString);
+        for (Item item :items) {
+            item.setItemId(item.getId().toString());
+            item.setId(null);
+        }
+        return items;
     }
 
     public Item getById(ObjectId id) {
-        return dictionaryDao.getById(id);
+        Item item = dictionaryDao.getById(id);
+        if (item != null) {
+            item.setItemId(item.getId().toString());
+            item.setId(null);
+        }
+        return item;
     }
 
     public Item create(Item item) {
         checkForCorrect(item);
-        return dictionaryDao.create(item);
+
+        Item createdItem = dictionaryDao.create(item);
+        createdItem .setItemId(createdItem .getId().toString());
+        createdItem .setId(null);
+        return createdItem;
     }
 
     public void update(Item item) {

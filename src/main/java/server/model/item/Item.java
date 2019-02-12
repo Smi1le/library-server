@@ -26,6 +26,7 @@ public class Item {
     @JsonProperty("translate")
     private String translate;
 
+    @JsonProperty("itemId")
     private String itemId;
 
 }
