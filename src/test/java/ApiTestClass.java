@@ -8,10 +8,7 @@ import org.apache.http.HttpStatus;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.client.methods.HttpPut;
-import org.apache.http.client.methods.HttpUriRequest;
+import org.apache.http.client.methods.*;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
@@ -20,10 +17,7 @@ import org.apache.http.message.BasicNameValuePair;
 import org.bson.types.ObjectId;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.*;
 import server.Main;
 import server.dao.impl.Database;
 import server.model.database.DatabaseParameters;
@@ -134,14 +128,13 @@ public class ApiTestClass {
         Assert.assertTrue(array.length() > 0);
     }
 
-    @Test
-    public void givenRequestForDeleteItemById() throws ClientProtocolException, IOException {
-        HttpUriRequest request = new HttpGet("http://localhost:9000/item/" + idItemForUpdate);
-        HttpResponse response = HttpClientBuilder.create().build().execute(request);
-
-//        JSONArray array = getPayload(response.getEntity().getContent());
-        Assert.assertEquals(response.getStatusLine().getStatusCode(), HttpStatus.SC_OK);
-    }
+//    @Test TODO: run alone or after showing all the rest
+//    public void deleteItemWithApiById() throws ClientProtocolException, IOException {
+//        HttpUriRequest request = new HttpDelete("http://localhost:9000/item/" + idItemForUpdate);
+//        HttpResponse response = HttpClientBuilder.create().build().execute(request);
+//
+//        Assert.assertEquals(response.getStatusLine().getStatusCode(), HttpStatus.SC_OK);
+//    }
 
     private JSONArray getPayload(InputStream inputStream) {
         JSONObject jsonObject = toJsonObject(inputStream);
